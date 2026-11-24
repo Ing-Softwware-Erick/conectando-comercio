@@ -1,0 +1,7 @@
+{
+  "name": "conectando-comercio",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
