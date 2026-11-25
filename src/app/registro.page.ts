@@ -6,11 +6,8 @@ import {
   IonHeader, IonToolbar, IonTitle, IonContent, 
   IonList, IonItem, IonLabel, IonInput, IonButton 
 } from '@ionic/angular';
-
-// 1. Traemos el almacenamiento local
 import { Preferences } from '@capacitor/preferences';
 
-// 2. DEFINIMOS LA INTERFAZ Y EL SERVICIO AQUÍ MISMO (adiós errores de rutas)
 export interface Comerciante {
   nombreNegocio: string;
   nombreResponsable: string;
@@ -57,8 +54,7 @@ export class RegistroPage {
   async guardar() {
     if (this.comerciante.nombreNegocio && this.comerciante.telefono) {
       await this.comercianteService.guardar(this.comerciante);
-      alert('¡Guardado con éxito!');
-      // Por ahora no redirigimos a ninguna parte porque el dashboard no existe aún
+      this.router.navigateByUrl('/dashboard');
     } else {
       alert('Por favor completa los campos obligatorios (Nombre del negocio y Teléfono)');
     }

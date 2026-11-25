@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/dashboard"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Mis Productos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="productos.length === 0" class="ion-text-center ion-padding ion-margin-top">
+    <h2>No tienes productos registrados</h2>
+    <p>Ve al panel principal y crea tu primer producto.</p>
+    <ion-button routerLink="/nuevo-producto">Crear Producto</ion-button>
+  </div>
+
+  <ion-list *ngIf="productos.length > 0">
+    <ion-item *ngFor="let p of productos" lines="full" class="ion-padding-vertical">
+      
+      <!-- Ajustamos el tamaño de la miniatura -->
+      <ion-thumbnail slot="start" style="width: 70px; height: 70px; --border-radius: 8px;">
+        <img *ngIf="p.imagen" [src]="p.imagen" alt="foto" style="object-fit: cover; width: 100%; height: 100%;">
+        <div *ngIf="!p.imagen" style="background: #444; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 10px; color: white;">Sin foto</div>
+      </ion-thumbnail>
+      
+      <ion-label class="ion-text-wrap">
+        <h2><strong>{{ p.nombre }}</strong></h2>
+        <p style="color: var(--ion-color-primary); font-weight: bold; font-size: 0.9rem;">{{ formatearPrecio(p.precio) }}</p>
+        <p style="font-size: 0.8rem;">Estado: {{ p.estado }}</p>
+      </ion-label>
+
+      <div slot="end" style="display: flex; flex-direction: column; gap: 0px;">
+        <ion-button fill="clear" size="small" color="primary" [routerLink]="['/detalle-producto', p.id]">
+          <ion-icon slot="icon-only" name="eye-outline"></ion-icon>
+        </ion-button>
+        <ion-button fill="clear" size="small" color="danger" (click)="eliminar(p.id)">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-button>
+      </div>
+
+    </ion-item>
+  </ion-list>
+</ion-content>
